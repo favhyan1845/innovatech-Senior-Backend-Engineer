@@ -48,7 +48,7 @@
 <div class="card"><div class="card-body p-4">
 <div class="d-flex flex-wrap gap-2 mb-3">
 @if($book->category)<span class="badge text-bg-primary">{{ $book->category }}</span>@endif
-@if($book->language)<span class="badge badge-soft">{{ strtoupper($book->language) }}</span>@endif
+@if($book->language)<span class="badge badge-soft"><i class="bi bi-translate me-1"></i>{{ $book->languageLabel() }}</span>@endif
 @if($book->published_year)<span class="badge badge-soft">{{ $book->published_year }}</span>@endif
 @if($book->isbn)<span class="badge badge-soft">ISBN {{ $book->isbn }}</span>@endif
 </div>

@@ -11,6 +11,31 @@ class Book extends Model
     use HasFactory;
 
     /**
+     * ISO 639-1 language codes with their display names.
+     *
+     * @var array<string, string>
+     */
+    public const LANGUAGES = [
+        'en' => 'English',
+        'es' => 'Spanish',
+        'fr' => 'French',
+        'de' => 'German',
+        'pt' => 'Portuguese',
+        'it' => 'Italian',
+        'nl' => 'Dutch',
+        'ru' => 'Russian',
+        'pl' => 'Polish',
+        'sv' => 'Swedish',
+        'ja' => 'Japanese',
+        'zh' => 'Chinese',
+        'ar' => 'Arabic',
+        'hi' => 'Hindi',
+        'ko' => 'Korean',
+        'la' => 'Latin',
+        'el' => 'Greek',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -65,6 +90,25 @@ class Book extends Model
     public function isAvailable(): bool
     {
         return $this->availableCopies() > 0;
+    }
+
+    /**
+     * Human-readable display name for the book's language code.
+     *
+     * Handles lowercase/uppercase codes and regional variants such as
+     * "en", "EN" or "en-US" (all mapped to "English").
+     */
+    public function languageLabel(): ?string
+    {
+        $language = trim((string) $this->language);
+
+        if ($language === '') {
+            return null;
+        }
+
+        $code = strtolower(explode('-', $language)[0]);
+
+        return self::LANGUAGES[$code] ?? $language;
     }
 
     /**

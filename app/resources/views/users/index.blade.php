@@ -10,7 +10,7 @@
 <div class="col-md-4"><select name="role" class="form-select">
 <option value="">All roles</option>
 @foreach(['admin','librarian','member'] as $role)
-<option value="{{ $role }}" @selected(request('role') === $role)>{{ ucfirst($role) }}s</option>
+<option value="{{ $role }}" {{ request('role') === $role ? 'selected' : '' }}>{{ ucfirst($role) }}s</option>
 @endforeach
 </select></div>
 <div class="col-auto"><button class="btn btn-outline-primary"><i class="bi bi-search me-1"></i>Filter</button></div>
@@ -33,7 +33,7 @@
 <form method="POST" action="{{ route('admin.users.update', $user) }}" class="d-inline-flex align-items-center gap-1">@csrf @method('PUT')
 <select name="role" class="form-select form-select-sm">
 @foreach(['member','librarian','admin'] as $role)
-<option value="{{ $role }}" @selected($user->role === $role)>{{ ucfirst($role) }}</option>
+<option value="{{ $role }}" {{ $user->role === $role ? 'selected' : '' }}>{{ ucfirst($role) }}</option>
 @endforeach
 </select>
 <button class="btn btn-sm btn-outline-primary"><i class="bi bi-check-lg"></i></button>

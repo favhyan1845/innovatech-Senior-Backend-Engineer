@@ -26,8 +26,8 @@
 <input type="text" name="publisher" value="{{ old('publisher', $book->publisher ?? '') }}" class="form-control"></div>
 <div class="col-md-4"><label class="form-label">Language</label>
 <select name="language" class="form-select">
-@foreach(['en'=>'English','es'=>'Spanish','fr'=>'French','de'=>'German','pt'=>'Portuguese','it'=>'Italian'] as $code => $label)
-<option value="{{ $code }}" @selected(old('language', $book->language ?? 'en') === $code)>{{ $label }}</option>
+@foreach(\App\Models\Book::LANGUAGES as $code => $label)
+<option value="{{ $code }}" {{ old('language', $book->language ?? 'en') === $code ? 'selected' : '' }}>{{ $label }}</option>
 @endforeach
 </select></div>
 <div class="col-md-4"><label class="form-label">Published year</label>

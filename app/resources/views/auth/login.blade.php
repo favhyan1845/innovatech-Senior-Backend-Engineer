@@ -11,7 +11,7 @@
 <input type="email" name="email" value="{{ old('email') }}" class="form-control" required autofocus></div>
 <div class="mb-3"><label class="form-label">Password</label>
 <input type="password" name="password" class="form-control" required></div>
-<div class="mb-3 form-check"><input type="checkbox" name="remember" id="remember" class="form-check-input" @checked(old('remember'))>
+<div class="mb-3 form-check"><input type="checkbox" name="remember" id="remember" class="form-check-input" {{ old('remember') ? 'checked' : '' }}>
 <label class="form-check-label" for="remember">Remember me</label></div>
 <button class="btn btn-primary w-100"><i class="bi bi-box-arrow-in-right me-1"></i>Login</button>
 </form>

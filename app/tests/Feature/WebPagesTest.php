@@ -71,7 +71,23 @@ class WebPagesTest extends TestCase
 
         $this->actingAs($this->librarian)
             ->get(route('admin.books.create'))
-            ->assertOk();
+            ->assertOk()
+            ->assertDontSee('@selected', false)
+            ->assertDontSee('@checked', false);
+    }
+
+    public function test_no_raw_blade_directives_leak_into_the_public_pages(): void
+    {
+        Book::factory()->create(['language' => 'en']);
+
+        $home = $this->get('/')->assertOk();
+        $home->assertDontSee('@selected', false);
+        $home->assertDontSee('@checked', false);
+        $home->assertSee('selected', false); // the language/category filters must select correctly
+
+        $book = Book::first();
+        $detail = $this->actingAs($this->member)->get(route('catalog.show', $book))->assertOk();
+        $detail->assertDontSee('@selected', false);
     }
 
     public function test_loans_management_page_renders(): void

@@ -15,7 +15,7 @@
 <select name="category" class="form-select" onchange="this.form.submit()">
 <option value="">All categories</option>
 @foreach($categories as $category)
-<option value="{{ $category }}" @selected(request('category') === $category)>{{ $category }}</option>
+<option value="{{ $category }}" {{ request('category') === $category ? 'selected' : '' }}>{{ $category }}</option>
 @endforeach
 </select>
 </div>
@@ -24,13 +24,13 @@
 <select name="sort" class="form-select" onchange="this.form.submit()">
 @php $sorts = ['newest'=>'Newest arrivals','oldest'=>'Oldest first','title'=>'Title A→Z','author'=>'Author A→Z','popular'=>'Most borrowed','available'=>'Most available']; @endphp
 @foreach($sorts as $key => $label)
-<option value="{{ $key }}" @selected((request('sort', 'newest') === $key))>{{ $label }}</option>
+<option value="{{ $key }}" {{ (request('sort', 'newest') === $key) ? 'selected' : '' }}>{{ $label }}</option>
 @endforeach
 </select>
 </div>
 <div class="col-md-4">
 <div class="form-check form-switch">
-<input class="form-check-input" type="checkbox" name="available" value="1" id="availableSwitch" @checked(request()->boolean('available')) onchange="this.form.submit()">
+<input class="form-check-input" type="checkbox" name="available" value="1" id="availableSwitch" {{ request()->boolean('available') ? 'checked' : '' }} onchange="this.form.submit()">
 <label class="form-check-label text-white-50" for="availableSwitch">Only show available books</label>
 </div>
 </div>

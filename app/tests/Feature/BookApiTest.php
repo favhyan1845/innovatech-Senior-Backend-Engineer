@@ -97,6 +97,22 @@ class BookApiTest extends ApiTestCase
         $this->assertDatabaseHas('books', ['id' => $book->id]);
     }
 
+    public function test_book_resource_exposes_human_readable_language(): void
+    {
+        $english = Book::factory()->create(['language' => 'en']);
+        $regional = Book::factory()->create(['language' => 'es-ES']);
+
+        $this->getJson("/api/books/{$english->id}")
+            ->assertOk()
+            ->assertJsonPath('data.language', 'en')
+            ->assertJsonPath('data.language_label', 'English');
+
+        $this->getJson("/api/books/{$regional->id}")
+            ->assertOk()
+            ->assertJsonPath('data.language', 'es-ES')
+            ->assertJsonPath('data.language_label', 'Spanish');
+    }
+
     public function test_available_filter_only_returns_books_with_free_copies(): void
     {
         $available = Book::factory()->create(['total_copies' => 2]);
